@@ -36,14 +36,14 @@ class Binary(): # Program reuses a LOT of variables between methods, which is wh
       expr2 = bin(expr2)[2:].zfill(128)
       # bin() converts numbers to binary
       # [2:] truncates an annoying "0b" from the start
-      # .zfill() pads them with zeros until they reach a certain length; I have set this to 128 bits.
+      # .zfill() pads the binaries with zeros until they reach a certain length (128 bits here).
       for bitCount, bits in enumerate(expr1):
         if expr1[bitCount] == "0" and expr2[bitCount] == "1": return True
         elif expr1[bitCount] == "1" and expr2[bitCount] == "0": return False
     while not self.integer1:
       self.integer1 = self.__positiveIntInput("Enter a positive integer: ")
     while True:
-      self.integer2 = self.__positiveIntInput("Enter an integer bigger than the first one: ")
+      self.integer2 = self.__positiveIntInput("Enter an integer bigger than {:,}: ".format(self.integer1))
       if self.integer2 != 0:
         if __greaterThan(self.integer1, self.integer2): break
   def calculateSumDifference(self, integer1Bin, integer2Bin):
