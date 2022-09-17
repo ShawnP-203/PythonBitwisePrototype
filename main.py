@@ -32,7 +32,8 @@ class Binary(): # Program reuses a LOT of variables between methods, which is wh
   def questions(self):
     def __greaterThan(expr1, expr2): # Assuming that >, >=, <, and <= count as arithmetic operators
       """Returns True if expr2 is greater than expr1; False if vice versa"""
-      expr1, expr2 = bin(expr1)[2:].zfill(128), bin(expr2)[2:].zfill(128)
+      expr1 = bin(expr1)[2:].zfill(128)
+      expr2 = bin(expr2)[2:].zfill(128)
       # bin() converts numbers to binary
       # [2:] truncates an annoying "0b" from the start
       # .zfill() pads them with zeros until they reach a certain length; I have set this to 128 bits.
