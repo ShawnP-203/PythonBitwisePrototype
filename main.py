@@ -48,7 +48,7 @@ class Binary(): # Program reuses a LOT of variables between methods, which is wh
   def calculateSumDifference(self, integer1Bin, integer2Bin):
     integer1Bin = int(bin(self.integer1)[2:], base = 2) # Potentially important retrospective note:
     integer2Bin = int(bin(self.integer2)[2:], base = 2) # The parameters in greaterThan() get strings
-    def __add(addend1, addend2):						# while these variables get integers.
+    def __add(addend1, addend2):                        # while these variables get integers.
       sum = addend1 ^ addend2 # XOR operator. Has nothing to do with exponents.
       carryTo = addend1 & addend2 # AND operator.
       while carryTo:
