@@ -11,13 +11,14 @@
 # 1. Can only use positive integers
 # 2. The second integer must be higher than the first
 class Binary(): # Program reuses a LOT of variables between methods, which is why I use a class
-  def __init__(self, integer1 = 0, integer2 = 0, finalSum = 0, invertedSum = 0, finalDifference = 0):
+  def __init__(self, integer1 = 0, integer2 = 0, finalSum = 0, sumInvertedSecond = 0, finalDifference = 0):
     self.integer1 = integer1
     self.integer2 = integer2
     self.finalSum = finalSum
-    self.invertedSum = invertedSum
+    self.sumInvertedSecond = sumInvertedSecond
     self.finalDifference = finalDifference
   def __positiveIntInput(self, question): # Leading underscores = do not call method outside of the class
+    """Asks for a positive integer and repeats the question if the user inputs otherwise"""
     try:
       assignTo = int(input(question).strip().replace(",", ""))
       if "b" not in bin(assignTo)[2:]: return assignTo # Negative binaries have "b" in them
@@ -30,6 +31,7 @@ class Binary(): # Program reuses a LOT of variables between methods, which is wh
       print("Please enter a *positive integer* (no negatives or non-numeric characters).")
       return 0
   def questions(self):
+    """Run with no arguments to see this program's questions"""
     def __greaterThan(expr1, expr2): # Assuming that >, >=, <, and <= count as arithmetic operators
       """Returns True if expr2 is greater than expr1; False if vice versa"""
       expr1 = bin(expr1)[2:].zfill(128)
@@ -47,9 +49,11 @@ class Binary(): # Program reuses a LOT of variables between methods, which is wh
       if self.integer2 != 0:
         if __greaterThan(self.integer1, self.integer2): break
   def calculateSumDifference(self, integer1Bin, integer2Bin):
+    """Converts two integers to binary and calculates the sum and difference"""
     integer1Bin = int(bin(self.integer1)[2:], base = 2) # Potentially important retrospective note:
     integer2Bin = int(bin(self.integer2)[2:], base = 2) # The parameters in greaterThan() get strings
     def __add(addend1, addend2):                        # while these variables get integers.
+      """Call once for addition and thrice (resembling a + ~b + 1) for subtraction"""
       sum = addend1 ^ addend2 # XOR operator. Has nothing to do with exponents.
       carryTo = addend1 & addend2 # AND operator.
       while carryTo:
@@ -67,10 +71,11 @@ class Binary(): # Program reuses a LOT of variables between methods, which is wh
     # apparently goes haywire if two things are true:
     # 1. The second number is negative — which is what ~ converts a positive integer to.
     # 2. The second number's absolute value is less than the first number's.
-    self.invertedSum = __add(integer1Bin, integer2Bin)
-    self.finalDifference = __add(1, self.invertedSum)
+    self.sumInvertedSecond = __add(integer1Bin, integer2Bin)
+    self.finalDifference = __add(1, self.sumInvertedSecond)
     print("\nSum: {:,}\nDifference: {:,}\n".format(self.finalSum, self.finalDifference))
 def main():
+  """Call with no arguments to see the program"""
   program = Binary()
   program.questions()
   program.calculateSumDifference(Binary().integer1, Binary().integer2)
